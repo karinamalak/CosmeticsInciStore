@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add product</title>
+
+</head>
+<body>
+<div class="container">
+    <form:form method="POST"
+               action="/product" modelAttribute="productDto">
+        <form:input class="form-control" path="id" hidden="true"/>
+
+        <div class="form-group">
+            <form:label path="name">Name</form:label>
+            <form:input class="form-control" path="name" required="true"/>
+        </div>
+        <div class="form-group">
+            <form:label path="category">Category</form:label>
+            <form:input class="form-control" path="category" required="true"/>
+        </div>
+        <div class="form-group">
+            <form:label path="price">Price</form:label>
+            <form:input class="form-control" path="price" required="true"/>
+        </div>
+        <div class="form-group">
+            <form:label path="amount">Amount</form:label>
+            <form:input class="form-control" path="amount" required="true"/>
+        </div>
+        <div class="form-group">
+            <form:label path="measure">Measure</form:label>
+            <form:input class="form-control" path="measure" required="true"/>
+        </div>
+        <div class="form-group">
+            <form:label path="description">Description</form:label>
+            <form:input class="form-control" path="description" required="true"/>
+        </div>
+
+    </form:form>
+
+</div>
+<form:button class="btn btn-primary" type="submit" value="Submit">Submit</form:button>
+</form:form>
+</div>
+</body>
+
+</html>
