@@ -23,19 +23,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Value("${spring.queries.users-query}")
-    private String usersQuery;
-
-    @Value("${spring.queries.roles-query}")
-    private String rolesQuery;
+//    @Value("${spring.queries.users-query}")
+//    private String usersQuery;
+//
+//    @Value("${spring.queries.roles-query}")
+//    private String rolesQuery;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.
                 jdbcAuthentication()
-                .usersByUsernameQuery(usersQuery)
-                .authoritiesByUsernameQuery(rolesQuery)
+                .usersByUsernameQuery("select email, password, true from user where email=?")
+                .authoritiesByUsernameQuery("select u.email, r.role from user u inner join user_role ur on(u.id=ur.user_id) inner join role r on(ur.role_id=r.id) where u.email=?")
                 .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
@@ -53,16 +53,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated().and().csrf().disable().formLogin()
 
                 .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/adminHome")
+                .defaultSuccessUrl("/admin/admin_home")
 
                 .usernameParameter("email")
                 .passwordParameter("password")
                 //.antMatchers("/user/**").hasAuthority("USER").anyRequest()
                 //.authenticated().and().csrf().disable().formLogin()
-                .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/user/userHome")
-                .usernameParameter("email")
-                .passwordParameter("password")
+              //  .loginPage("/login").failureUrl("/login?error=true")
+                //*.antMatchers("/user/**").hasAuthority("USER").anyRequest()
+                //.authenticated().and().csrf().disable().formLogin()
+//                .loginPage("/login").failureUrl("/login?error=true")
+//                .defaultSuccessUrl("/user/userHome")
+//                .usernameParameter("email")
+//                .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").and().exceptionHandling()
