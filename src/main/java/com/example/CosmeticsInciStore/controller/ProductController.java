@@ -23,11 +23,11 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping(value = "products", method = RequestMethod.GET)
-    public List<Product> findAll(){
-        return this.productService.findAll();
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    public List<Product> findAll(Model model){
+        model.addAttribute("products", productService.findAll());
+            return this.productService.findAll();
     }
-
 
     @RequestMapping(value = "/add_product", method = RequestMethod.GET)
     public String addProductView(Model model){
@@ -35,7 +35,7 @@ public class ProductController {
         return "add_product";
     }
 
-    @PostMapping(value = "products")
+    @PostMapping(value = "/products")
     public String createProduct(@Valid @ModelAttribute("productDto") ProductDTO productDTO, Model model){
 
         if(productDTO.getId() == null) {
