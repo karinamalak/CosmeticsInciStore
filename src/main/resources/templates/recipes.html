@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/recipes.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Recipes</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-rec1-list" data-toggle="list"
+                   href="#list-rec1" role="tab" aria-controls="rec1">Tonik na przebarwienia</a>
+                <a class="list-group-item list-group-item-action" id="list-rec2-list" data-toggle="list"
+                   href="#list-rec2" role="tab" aria-controls="rec2">Krem do cery normalnej</a>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-rec1" role="tabpanel" aria-labelledby="list-rec1-list">
+                    <article class="panel panel-default">
+                        <header class="panel-heading">
+                            <h1 class="text-muted text-center"></span> Tonik na przebarwienia </h1>
+                        </header>
+                        <hr>
+                        <tr>
+                            <td>
+                                <ul>
+                                    <li><p>Hydrolat z zielonej herbaty 50 ml</p></li>
+                                    <li><p>niacynamid 1,5 g</p></li>
+                                    <li><p>Kwas kojowy 0,5 g</p></li>
+                                    <li><p>Wodorotlenek sodu oraz kwas mlekowy do ustalenia pH</p></li>
+                                    <li>Naczynia, papierki lakumsowe</p></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <hr>
+                        <div class="panel-body">
+                            <h4>Preparation</h4>
+                            <table border=0 class="rounded-list">
+                                <tr>
+                                    <td>
+                                        <ol>
+                                            <li><p>Zdezynfekuj narzędzia do pracy.</p></li>
+                                            <li><p>Odmierz składiki</p></li>
+                                            <li><p>Wlej hydrolat do zlewki</p></li>
+                                            <li>Mieszaj, aż do całkowitego rozpusczenia składników</p></li>
+                                            <li>Papierkiem lakmusowym sprawdź pH toniku. Pownno być na poziomie 5. Jeśli
+                                                będzie za wysokie dodać niewielka ilość wodorotlenku sodu, w przeciwnym
+                                                wypadku dodaj trochę kwasu mlekowego</p></li>
+                                            <li>Przelej do szklanej butelki z ciemnego szkła i przechowuj w lodówce do 2
+                                                tygodni</p></li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </article>
+                </div>
+                <div class="tab-pane fade" id="list-rec2" role="tabpanel" aria-labelledby="list-rec2-list">
+
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</body>
+</html>
