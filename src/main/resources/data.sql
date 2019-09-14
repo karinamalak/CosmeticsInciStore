@@ -1,6 +1,12 @@
---insert into user values(1,'email@email.com','name','password1','surname'); --haslo "pass"
+--insert into user(id,email,name,password,surname) values(hibernate_sequence.NEXT_VAL,'email@email.com','name','{bcrypt}$2y$12$dqL6CtE.3DfoinrqFreD7.hU4v7SQSgxyMlVMGizzwRFlu7M8FpSK','surname'); --haslo "password1"
+insert into user(email,name,password,surname) values('email@email.com','name','$2y$12$H7dhDuKP/kf0n1hnSiYyLuzqeA9cUQKEFIAeke4Qf/LTA05b.npxS','surname'); --haslo "password1"
+
 insert into role values(1,'ADMIN');
---insert into user_role values(1,1);
+insert into role values(2,'USER');
+insert into user_role values(1,1);
+insert into products values(1,	10,	'Extract',	'Description',	10	,'Citrus extract',	5)
+
+--insert into user_role values(2,2);
 
 //products: id, amount, category, description, measure, name, price
 insert into products values ( 1, 100, 'Ekstrakty roślinne',
