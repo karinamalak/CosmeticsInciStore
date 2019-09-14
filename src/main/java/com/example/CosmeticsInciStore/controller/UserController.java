@@ -1,6 +1,7 @@
 package com.example.CosmeticsInciStore.controller;
 
 
+import com.example.CosmeticsInciStore.entity.Product;
 import com.example.CosmeticsInciStore.entity.User;
 import com.example.CosmeticsInciStore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,17 +72,33 @@ public class UserController {
         modelAndView.setViewName("admin/admin_home");
         return modelAndView;
     }
-//
-//    @RequestMapping(value="/user/userHome", method = RequestMethod.GET)
-//    public ModelAndView user(){
-//        ModelAndView modelAndView = new ModelAndView();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userService.findUserByEmail(auth.getName());
-//        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-//        modelAndView.addObject("userMessage","This Page is available to Users with User Role");
-//        modelAndView.setViewName("user/userHome");
-//        return modelAndView;
-//    }
+
+    @RequestMapping(value="/user/user_home", method = RequestMethod.GET)
+    public ModelAndView user(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("Name", user.getName());
+        modelAndView.addObject("Surname", user.getSurname() );
+        modelAndView.addObject("Email", user.getEmail());
+        //modelAndView.addObject("userMessage","This Page is available to Users with User Role");
+        modelAndView.setViewName("user/user_home");
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/user/shopping_cart", method = RequestMethod.GET)
+    public ModelAndView shoppingCart(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //Product product
+        User user = userService.findUserByEmail(auth.getName());
+
+       // modelAndView.addObject("Name", user.getName());
+
+        //modelAndView.addObject("userMessage","This Page is available to Users with User Role");
+        modelAndView.setViewName("user/shopping_cart");
+        return modelAndView;
+    }
 
 }
 
