@@ -25,11 +25,24 @@
 <!--                <span th:utext="${userName}"></span>-->
             </div>
             <div class="panel-body">
-                <img th:src="@{/images/tree.jpg}" class="img-responsive center-block" width="400" height="400"
+                <img th:src="@{/images/tree.jpg}" class="img-responsive center-block" width="200" height="200"
                      alt="Beer"/>
-            </div>
+
 <!--            <p class="admin-message-text text-center" th:utext="${adminMessage}"></p>-->
         </div>
+
+        </div>
+        <div class="button">
+            <a th:href="@{/admin/products}">PRODUCTS</a>
+        </div>
+        <div class="button">
+            <a th:href="@{/admin/users_list}">USERS</a>
+        </div>
+        <div class="button">
+            <a th:href="@{/admin/orders}">ORDERS</a>
+        </div>
+    </div>
+
     </div>
 
 </div>

@@ -39,17 +39,12 @@
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>
-                    <form th:action="@{/admin/edit_product}" method="post" >
-                        <input hidden name="id" th:value="${product.id}">
-                        <button>
-                            <i class="fas fa-cog"></i>
-                        </button>
-                    </form>
                 </td>
             </tr>
     </table>
 </div>
     </div>
-    <a th:href="@{/add_product}">Add product</a><br>
+    <a th:href="@{/admin/add_product}">Add product</a><br>
+
 </body>
 </html>

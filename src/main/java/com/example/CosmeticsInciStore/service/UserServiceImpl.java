@@ -1,5 +1,6 @@
 package com.example.CosmeticsInciStore.service;
 
+import com.example.CosmeticsInciStore.entity.Product;
 import com.example.CosmeticsInciStore.entity.Role;
 import com.example.CosmeticsInciStore.entity.User;
 import com.example.CosmeticsInciStore.repository.RoleRepository;
@@ -7,9 +8,11 @@ import com.example.CosmeticsInciStore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,4 +40,10 @@ public class UserServiceImpl implements UserService {
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);
     }
+
+    @Transactional(readOnly = true)
+    public List<User> findAll() {
+        return this.userRepository.findAll();
+    }
+
 }

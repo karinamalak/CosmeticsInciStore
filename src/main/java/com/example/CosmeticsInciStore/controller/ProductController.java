@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.example.CosmeticsInciStore.mapper.ProductMapper.toDTO;
 
 @Controller
 public class ProductController {
@@ -41,7 +40,6 @@ public class ProductController {
         return "admin/add_product";
     }
 
-
     @PostMapping(value = "/admin/add_product")
     public String createProduct(@Valid ProductDTO productDTO, Model model){
 
@@ -55,18 +53,11 @@ public class ProductController {
         return "admin/products";
     }
 
-
     @PostMapping(value = "/admin/delete_product")
     public String deleteProduct(@RequestParam(required = true) Long id, Model model){
         this.productService.deleteProductById(id);
         model.addAttribute("products", this.productService.findAll());
         return "admin/products";
-    }
-
-    @PostMapping(value = "/admin/edit_product")
-    public String editProduct(@RequestParam(required = true) Long id, Model model){
-        model.addAttribute("productDTO", toDTO(this.productService.getById(id)));
-        return "admin/add_product";
     }
 
 }

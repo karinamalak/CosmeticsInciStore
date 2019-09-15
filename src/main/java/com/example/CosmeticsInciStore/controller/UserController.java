@@ -9,12 +9,14 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -98,6 +100,12 @@ public class UserController {
         //modelAndView.addObject("userMessage","This Page is available to Users with User Role");
         modelAndView.setViewName("user/shopping_cart");
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/admin/users_list", method = RequestMethod.GET)
+    public List<User> findAll(Model model){
+        model.addAttribute("users", userService.findAll());
+        return this.userService.findAll();
     }
 
 }
