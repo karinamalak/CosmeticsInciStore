@@ -23,7 +23,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/products", method = RequestMethod.GET)
     public List<Product> findAll(Model model){
         model.addAttribute("products", productService.findAll());
             return this.productService.findAll();
@@ -35,35 +35,38 @@ public class ProductController {
         return this.productService.findAll();
     }
 
-    @RequestMapping(value = "/add_product", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/add_product", method = RequestMethod.GET)
     public String addProductView(Model model){
-        model.addAttribute("productDto", new ProductDTO());
-        return "add_product";
+        model.addAttribute("productDTO", new ProductDTO());
+        return "admin/add_product";
     }
 
-    @PostMapping(value = "/products")
-    public String createProduct(@Valid @ModelAttribute("productDto") ProductDTO productDTO, Model model){
 
-        if(productDTO.getId() == null) {
+    @PostMapping(value = "/admin/add_product")
+    public String createProduct(@Valid ProductDTO productDTO, Model model){
+
+        if(productDTO.getName() == null) {
+            model.addAttribute("productDTO", new Product());
             this.productService.createProduct(productDTO);
         } else {
             this.productService.updateProduct(productDTO);
         }
         model.addAttribute("products", this.productService.findAll());
-        return "products";
+        return "admin/products";
     }
 
-    @PostMapping(value = "/delete_product")
+
+    @PostMapping(value = "/admin/delete_product")
     public String deleteProduct(@RequestParam(required = true) Long id, Model model){
         this.productService.deleteProductById(id);
         model.addAttribute("products", this.productService.findAll());
-        return "products";
+        return "admin/products";
     }
 
-    @PostMapping(value = "/edit_product")
+    @PostMapping(value = "/admin/edit_product")
     public String editProduct(@RequestParam(required = true) Long id, Model model){
-        model.addAttribute("productDto", toDTO(this.productService.getById(id)));
-        return "add_product";
+        model.addAttribute("productDTO", toDTO(this.productService.getById(id)));
+        return "admin/add_product";
     }
 
 }

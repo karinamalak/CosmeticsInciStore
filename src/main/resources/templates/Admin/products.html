@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
@@ -31,13 +32,24 @@
                 <td th:text="${product.amount}"></td>
                 <td th:text="${product.measure}"></td>
                 <td th:text="${product.description}"></td>
+                <td>
+                    <form th:action="@{/admin/delete_product}" method="post" onclick="return confirm('Are you sure you want to delete product?');">
+                        <input hidden name="id" th:value="${product.id}">
+                        <button>
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                    <form th:action="@{/admin/edit_product}" method="post" >
+                        <input hidden name="id" th:value="${product.id}">
+                        <button>
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </form>
+                </td>
             </tr>
     </table>
 </div>
     </div>
     <a th:href="@{/add_product}">Add product</a><br>
-    <a th:href="@{/edit_product}">Edit product</a><br>
-    <a th:href="@{/delete_product}">Delete product</a><br>
-
 </body>
 </html>

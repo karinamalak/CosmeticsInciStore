@@ -15,14 +15,12 @@
 
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form autocomplete="off" action="/add_product" th:action="@{/add_product}"
-                  th:object="${productDto}" method="post" class="form-horizontal"
+            <form autocomplete="off" action="#" th:action="@{/admin/add_product}"
+                  th:object="${productDTO}" path="id" method="post" class="form-horizontal"
                   role="form">
                 <h2>ADD PRODUCT</h2>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-                               class="validation-message"></label>
                         <input type="text" th:field="*{name}" placeholder="Name"
                                class="form-control"/>
                     </div>
@@ -30,16 +28,12 @@
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('category')}" th:errors="*{category}"
-                               class="validation-message"></label>
                         <input type="text" th:field="*{category}"
                                placeholder="Category" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
-                               class="validation-message"></label>
                         <input type="number" th:field="*{price}"
                                placeholder="Price" class="form-control"/>
                     </div>
@@ -47,31 +41,25 @@
                 <div class="form-group">
                     <div class="col-sm-9">
                         <input type="text" th:field="*{amount}"
-                               placeholder="Amount" class="form-control"/> <label
-                            th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"
-                            class="validation-message"></label>
+                               placeholder="Amount" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <input type="text" th:field="*{measure}"
-                               placeholder="Measure" class="form-control"/> <label
-                            th:if="${#fields.hasErrors('measure')}" th:errors="*{measure}"
-                            class="validation-message"></label>
+                               placeholder="Measure" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <input type="text" th:field="*{description}"
-                               placeholder="Description" class="form-control"/> <label
-                            th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
-                            class="validation-message"></label>
+                               placeholder="Description" class="form-control"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <button class="btn btn-primary" type="submit" value="Add product">Add product</button>
+                        <button th:action="@{admin/add_product}" class="btn btn-primary" type="submit" value="Submit">Add product</button>
                     </div>
                 </div>
             </form>
