@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 import static com.example.CosmeticsInciStore.mapper.ProductMapper.toEntity;
@@ -46,4 +47,11 @@ public class ProductService {
         productRepository.save(toEntity(productDTO));
     }
 
+    public List<Product> findAllByName(String name) {
+        return productRepository.findAllByName(name);
+    }
+
+    public Product findByName(String name) {
+        return productRepository.findByName(name);
+    }
 }

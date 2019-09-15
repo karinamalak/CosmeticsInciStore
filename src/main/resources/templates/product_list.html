@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/recipes.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+
+    <title>Product list</title>
+</head>
+<body>
+<form action="/login"><button class="btn peach-gradient">Login</button></form>
+<form action="/registration"><button class="btn blue-gradient">Register</button></form>
+<form action="/recipes"><button class="btn purple-gradient">Recipes</button></form>
+<form action="/user/shopping_cart"><button class="btn aqua-gradient">Shopping cart</button></form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist" th:each="product : ${products}">
+                <a class="list-group-item list-group-item-action" th:id="#{'list-' + ${product.id} + '-list'}"
+                   data-toggle="list"
+                   th:href="${#strings.concat('#',product.id)}" role="tab" th:aria-controls="#{${product.id}}"
+                   th:text="${product.name}">Nazwa produkt</a>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent" th:each="product : ${products}" th:object="${product}">
+                <div class="tab-pane fade show active" th:id="#{'list-'+${product.id}}" role="tabpanel"
+                     th:aria-labelledby="#{'list-' + ${product.id} + '-list'}">
+                    <article class="panel panel-default">
+                        <header class="panel-heading">
+                            <h1 class="text-muted text-center"><span th:text="*{name}"/></h1>
+                        </header>
+                        <h6><a href="category" th:text="*{category}"> </a></h6>
+                        <hr>
+                        <tr>
+                            <td th:text="*{description}"/>
+                        </tr>
+                        <hr>
+                        <tr>
+                            Price:
+                            <td th:text="${product.price}"></td>
+                            <div class="panel-body">
+                                <form th:action="@{/user/shopping_cart}" method="post">
+                                    <input hidden name="id" th:value="${product.id}">
+                                    <button>
+                                        <i class="fas fa-cart-arrow-down"></i></button>
+                                </form>
+                            </div>
+                        </tr>
+
+                    </article>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
