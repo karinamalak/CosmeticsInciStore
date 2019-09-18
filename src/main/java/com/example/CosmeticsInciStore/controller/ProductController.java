@@ -8,14 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.CosmeticsInciStore.mapper.ProductMapper.toDTO;
 
 @Controller
 public class ProductController {
@@ -33,12 +30,6 @@ public class ProductController {
             return this.productService.findAll();
     }
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public List<Product> findAllProducts(Model model){
-        model.addAttribute("products", productService.findAll());
-        return this.productService.findAll();
-    }
-
     @RequestMapping(value = "/admin/add_product", method = RequestMethod.GET)
     public String addProductView(Model model){
         model.addAttribute("productDTO", new ProductDTO());
@@ -47,12 +38,16 @@ public class ProductController {
 
     @PostMapping(value = "/admin/add_product")
     public String createProduct(@Valid ProductDTO productDTO, Model model) {
-
         if (productDTO.getName() == null) {
             model.addAttribute("productDTO", new Product());
-
+            this.productService.createProduct(productDTO);
+        } else {
+            this.productService.updateProduct(productDTO);
         }
+        model.addAttribute("products", this.productService.findAll());
+        return "admin/products";
     }
+
     @GetMapping("/")
     public String findAll(@RequestParam(required = false) Long id,
                           @RequestParam(required = false) String name,
