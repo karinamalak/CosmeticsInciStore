@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,12 +30,6 @@ public class ProductController {
             return this.productService.findAll();
     }
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public List<Product> findAllProducts(Model model){
-        model.addAttribute("products", productService.findAll());
-        return this.productService.findAll();
-    }
-
     @RequestMapping(value = "/admin/add_product", method = RequestMethod.GET)
     public String addProductView(Model model){
         model.addAttribute("productDTO", new ProductDTO());
@@ -41,9 +37,8 @@ public class ProductController {
     }
 
     @PostMapping(value = "/admin/add_product")
-    public String createProduct(@Valid ProductDTO productDTO, Model model){
-
-        if(productDTO.getName() == null) {
+    public String createProduct(@Valid ProductDTO productDTO, Model model) {
+        if (productDTO.getName() == null) {
             model.addAttribute("productDTO", new Product());
             this.productService.createProduct(productDTO);
         } else {
@@ -51,6 +46,44 @@ public class ProductController {
         }
         model.addAttribute("products", this.productService.findAll());
         return "admin/products";
+    }
+
+    @GetMapping("/")
+    public String findAll(@RequestParam(required = false) Long id,
+                          @RequestParam(required = false) String name,
+                          Model model){
+
+        List<Product> products = new ArrayList<>();
+        if (id != null) {
+            products.add(productService.getById(id));
+        }
+        else if (name != null) {
+//            products.addAll(productService.findAllByName(name));
+            products.add(productService.findByName(name));
+        }
+        else {
+            products.addAll(productService.findAll());
+        }
+        model.addAttribute("products", products);
+        return "product_list";
+    }
+
+
+    @PostMapping(value = "/user/shopping_cart")
+    public String addToCart(@RequestParam(required = true) Long id, HttpSession session){
+        if (session.getAttribute("shoppingCart") == null) {
+            session.setAttribute("shoppingCart", new ArrayList<Product>());
+        }
+        List<Product> shoppingCart = (List<Product>) session.getAttribute("shoppingCart");
+        Product productInDB = productService.getById(id);
+        Product productToSession = new Product();
+        productToSession.setId(productInDB.getId());
+        productToSession.setName(productInDB.getName());
+        productToSession.setCategory(productInDB.getCategory());
+        productToSession.setPrice(productInDB.getPrice());
+        shoppingCart.add(productToSession);
+        return "redirect:/user/shopping_cart";
+
     }
 
     @PostMapping(value = "/admin/delete_product")
