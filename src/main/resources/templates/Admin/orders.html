@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Zamówienia</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+
+<body>
+
+</div>
+<div>
+    <h1>ZAMÓWIENIA:</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>User_Id</th>
+            <th>Product_Id</th>
+            <th>Sum</th>
+        </tr>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.user_id}"></td>
+            <td th:text="${order.product_id}"></td>
+            <td th:text="${order.sum}"></td>
+            <td>
+                <form th:action="@{/admin/delete_order}" method="post" onclick="return confirm('Are you sure you want to delete order?');">
+                    <input hidden name="id" th:value="${order.id}">
+                    <button>
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/admin/confirm_order}" method="post" onclick="return confirm('Are you sure you want to confirm order?');">
+                    <button>
+                        <i class="fas fa-check-square"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>
+<a th:href="@{/admin/add_product}">Add product</a><br>
+
+</body>
+</html>

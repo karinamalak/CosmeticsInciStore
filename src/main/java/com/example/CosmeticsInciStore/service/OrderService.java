@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    private OrderRepository orderRepository;
+     private OrderRepository orderRepository;
 
     @Autowired
     public OrderService(OrderRepository orderRepository) {
@@ -29,5 +29,21 @@ public class OrderService {
     public List<Order> findAll() {
         return this.orderRepository.findAll();
     }
+
+    @Transactional(readOnly = false)
+    public void deleteOrderById(Long id) {
+        this.orderRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void confirmOrder(Order order) {
+        this.orderRepository.save(order);
+    }
+
+    @Transactional
+    public void sumOfOrder() {
+        this.orderRepository.count();
+    }
+
 
 }
