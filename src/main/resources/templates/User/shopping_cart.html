@@ -37,19 +37,25 @@
                         <div class="media">
 <!--                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>-->
                             <div class="media-body">
-                                <h4 class="media-heading" ><a href="#" th:text="${product.name}"></a></h4>
-                                <h5 class="media-heading"> <a href="#" th:text="${product.category}"></a></h5>
+                                <h5 class="media-heading" ><a th:href="@{/(name=${product.name})}" th:text="${product.name}"></a></h5>
+                                <h6 class="media-heading"> <a th:href="@{/(category=${product.category})}" th:text="${product.category}"></a></h6>
                             </div>
                         </div></td>
                     <td class="col-sm-1 col-md-1" style="text-align: center">
-                        <input id="quantity" value="3">
+                        <input id="quantity" value="1">
                     </td>
-                    <td class="col-sm-1 col-md-1 text-center"><strong th:text="${product.price}"></strong></td>
-                    <td class="col-sm-1 col-md-1 text-center"><strong>$14.61</strong></td>
+                    <td class="col-sm-1 col-md-1 text-center"><strong th:text="${product.price}+' zł'"> </strong></td>
+                    <td class="col-sm-1 col-md-1 text-center"  th:with="result=${product.price * product.amount}"><strong th:text="${result}+' zł'"></strong></td>
+
                     <td class="col-sm-1 col-md-1">
+                        <form th:action="@{/user/delete_product}" method="post">
+                            <input hidden name="id" th:value="${product.id}">
                         <button type="button" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove"></span> Remove
-                        </button></td>
+                        </button>
+                    </form>
+                    </td>
+
                 </tr>
 
                 <tr>
@@ -57,7 +63,7 @@
                     <td>   </td>
                     <td>   </td>
                     <td><h5>Subtotal</h5></td>
-                    <td class="text-right"><h5><strong>$24.59</strong></h5></td>
+                    <td class="text-right"><h5><strong >  </strong></h5></td>
                 </tr>
                 <tr>
                     <td>   </td>
@@ -85,7 +91,7 @@
                     <td>   </td>
                     <td>   </td>
                     <td>
-                        <form action="/product_list">
+                        <form action="/">
                             <input type="submit" value="Continue Shopping"/>
                         </form>
                     </td>

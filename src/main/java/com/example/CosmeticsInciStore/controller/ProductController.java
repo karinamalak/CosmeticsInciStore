@@ -3,16 +3,22 @@ package com.example.CosmeticsInciStore.controller;
 import com.example.CosmeticsInciStore.DTO.ProductDTO;
 import com.example.CosmeticsInciStore.entity.Product;
 import com.example.CosmeticsInciStore.service.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
+import static com.example.CosmeticsInciStore.mapper.ProductMapper.toDTO;
 
 @Controller
 public class ProductController {
@@ -48,9 +54,11 @@ public class ProductController {
         return "admin/products";
     }
 
+
     @GetMapping("/")
     public String findAll(@RequestParam(required = false) Long id,
                           @RequestParam(required = false) String name,
+                          @RequestParam(required = false) String category,
                           Model model){
 
         List<Product> products = new ArrayList<>();
@@ -60,6 +68,9 @@ public class ProductController {
         else if (name != null) {
 //            products.addAll(productService.findAllByName(name));
             products.add(productService.findByName(name));
+        }
+        else if (category != null) {
+            products.addAll(productService.findAllByCategory(category));
         }
         else {
             products.addAll(productService.findAll());
@@ -72,15 +83,25 @@ public class ProductController {
     @PostMapping(value = "/user/shopping_cart")
     public String addToCart(@RequestParam(required = true) Long id, HttpSession session){
         if (session.getAttribute("shoppingCart") == null) {
-            session.setAttribute("shoppingCart", new ArrayList<Product>());
+            session.setAttribute("shoppingCart", new LinkedHashSet<Product>());
         }
-        List<Product> shoppingCart = (List<Product>) session.getAttribute("shoppingCart");
+        Set<Product> shoppingCart = (Set<Product>) session.getAttribute("shoppingCart");
         Product productInDB = productService.getById(id);
         Product productToSession = new Product();
         productToSession.setId(productInDB.getId());
         productToSession.setName(productInDB.getName());
+        productToSession.setAmount(productInDB.getAmount());
         productToSession.setCategory(productInDB.getCategory());
         productToSession.setPrice(productInDB.getPrice());
+        for (Product product:shoppingCart
+             ) {
+            if (product.getName().equals(productToSession.getName())) {
+                //licznik dla kazdego elementu z listy shoppingcart
+//shoppingCart.
+            }
+        }
+
+
         shoppingCart.add(productToSession);
         return "redirect:/user/shopping_cart";
 
