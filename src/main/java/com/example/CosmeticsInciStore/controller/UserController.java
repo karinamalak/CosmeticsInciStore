@@ -3,6 +3,7 @@ package com.example.CosmeticsInciStore.controller;
 
 import com.example.CosmeticsInciStore.entity.Product;
 import com.example.CosmeticsInciStore.entity.User;
+import com.example.CosmeticsInciStore.service.ProductService;
 import com.example.CosmeticsInciStore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -11,12 +12,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    private ProductService productService;
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public ModelAndView login() {
@@ -97,9 +102,10 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (session.getAttribute("shoppingCart") == null) {
-            session.setAttribute("shoppingCart", new ArrayList<Product>());
+            session.setAttribute("shoppingCart", new LinkedHashSet<Product>());
         }
-        List<Product> products = (List<Product>) session.getAttribute("shoppingCart");
+        //List<Product> products = (List<Product>) session.getAttribute("shoppingCart");
+        Set<Product> products = (Set<Product>) session.getAttribute("shoppingCart");
         model.addAttribute("products", products);
 
        return "User/shopping_cart";
@@ -109,5 +115,17 @@ public class UserController {
         model.addAttribute("users", userService.findAll());
         return this.userService.findAll();
     }
+
+    @PostMapping(value = "/user/delete_product")
+    public String deleteProduct(@RequestParam(required = true) Long id, Model model, HttpSession session){
+        Set<Product> products = (Set<Product>) session.getAttribute("shoppingCart");
+        products.remove(productService.getById(id));
+        //this.productService.deleteProductById(id);
+        model.addAttribute("products", products);
+        return "user/shopping_cart";
+    }
+
+
+
 }
 

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -8,49 +11,71 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/recipes.css}"/>
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
 
     <title>Product list</title>
 </head>
 <body>
-<form action="/login"><button class="btn peach-gradient">Login</button></form>
-<form action="/registration"><button class="btn blue-gradient">Register</button></form>
-<form action="/recipes"><button class="btn purple-gradient">Recipes</button></form>
-<form action="/user/shopping_cart"><button class="btn aqua-gradient">Shopping cart</button></form>
+
+    <a href="/login">
+    <button class="btn btn-primary">
+        <i class="material-icons">favorite</i>Login
+    </button>
+    </a>
+
+    <a href="/registration">
+        <button class="btn btn-primary">
+            <i class="material-icons">favorite</i>Register
+        </button>
+    </a>
+
+    <a href="/recipes">
+        <button class="btn btn-primary">
+            <i class="material-icons">favorite</i>Recipes
+        </button>
+    </a>
+
+    <a href="/user/shopping_cart">
+        <button class="btn btn-primary">
+            <i class="material-icons">favorite</i>Shopping cart
+        </button>
+    </a>
 
 <div class="container">
     <div class="row">
         <div class="col-4">
             <div class="list-group" id="list-tab" role="tablist" th:each="product : ${products}">
-                <a class="list-group-item list-group-item-action" th:id="#{'list-' + ${product.id} + '-list'}"
+                <a class="list-group-item list-group-item-action active" th:id="'list-' + ${product.id} + '-list'"
                    data-toggle="list"
-                   th:href="${#strings.concat('#',product.id)}" role="tab" th:aria-controls="#{${product.id}}"
+                   th:href="@{/(name=${product.name})}" role="tab" th:aria-controls="${product.id}"
                    th:text="${product.name}">Nazwa produkt</a>
             </div>
         </div>
 
         <div class="col-8">
             <div class="tab-content" id="nav-tabContent" th:each="product : ${products}" th:object="${product}">
-                <div class="tab-pane fade show active" th:id="#{'list-'+${product.id}}" role="tabpanel"
-                     th:aria-labelledby="#{'list-' + ${product.id} + '-list'}">
+                <div class="tab-pane fade show active" th:id="${product.id}" role="tabpanel"
+                     th:aria-labelledby="'list-' + ${product.id} + '-list'">
                     <article class="panel panel-default">
                         <header class="panel-heading">
                             <h1 class="text-muted text-center"><span th:text="*{name}"/></h1>
                         </header>
-                        <h6><a href="category" th:text="*{category}"> </a></h6>
-                        <hr>
+                        <h6><a th:href="@{/(category=${product.category})}" th:text="*{category}"> </a></h6>
                         <tr>
                             <td th:text="*{description}"/>
                         </tr>
-                        <hr>
+
                         <tr>
-                            Price:
-                            <td th:text="${product.price}"></td>
                             <div class="panel-body">
+                            Price: <td th:text="${product.price}+' zł'"></td>
                                 <form th:action="@{/user/shopping_cart}" method="post">
                                     <input hidden name="id" th:value="${product.id}">
                                     <button>
@@ -58,6 +83,7 @@
                                 </form>
                             </div>
                         </tr>
+                        <hr>
 
                     </article>
                 </div>
