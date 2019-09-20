@@ -50,12 +50,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/recipes").permitAll()
                 .antMatchers("/product_list").permitAll()
+                .antMatchers("/admin/products").permitAll()
+                .antMatchers("/admin/add_product").permitAll()
                 //.antMatchers("/user/**").hasAuthority("USER")
-                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+                .antMatchers("/admin/admin_home").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
 
                 .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/admin_home")
+                .defaultSuccessUrl("/")
 
                 .usernameParameter("email")
                 .passwordParameter("password")

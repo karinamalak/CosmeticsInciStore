@@ -3,14 +3,10 @@ package com.example.CosmeticsInciStore.controller;
 import com.example.CosmeticsInciStore.DTO.ProductDTO;
 import com.example.CosmeticsInciStore.entity.Product;
 import com.example.CosmeticsInciStore.service.ProductService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -18,7 +14,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.example.CosmeticsInciStore.mapper.ProductMapper.toDTO;
 
 @Controller
 public class ProductController {
@@ -33,7 +28,13 @@ public class ProductController {
     @RequestMapping(value = "/admin/products", method = RequestMethod.GET)
     public List<Product> findAll(Model model){
         model.addAttribute("products", productService.findAll());
-            return this.productService.findAll();
+        return this.productService.findAll();
+    }
+
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public List<Product> findAllProducts(Model model){
+        model.addAttribute("products", productService.findAll());
+        return this.productService.findAll();
     }
 
     @RequestMapping(value = "/admin/add_product", method = RequestMethod.GET)
@@ -94,7 +95,7 @@ public class ProductController {
         productToSession.setCategory(productInDB.getCategory());
         productToSession.setPrice(productInDB.getPrice());
         for (Product product:shoppingCart
-             ) {
+        ) {
             if (product.getName().equals(productToSession.getName())) {
                 //licznik dla kazdego elementu z listy shoppingcart
 //shoppingCart.

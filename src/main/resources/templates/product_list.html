@@ -8,10 +8,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    ​
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/recipes.css}"/>
-<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>-->
+    <!--    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
@@ -20,35 +20,35 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
-
+    ​
     <title>Product list</title>
 </head>
 <body>
-
-    <a href="/login">
+​
+<a href="/login">
     <button class="btn btn-primary">
         <i class="material-icons">favorite</i>Login
     </button>
-    </a>
-
-    <a href="/registration">
-        <button class="btn btn-primary">
-            <i class="material-icons">favorite</i>Register
-        </button>
-    </a>
-
-    <a href="/recipes">
-        <button class="btn btn-primary">
-            <i class="material-icons">favorite</i>Recipes
-        </button>
-    </a>
-
-    <a href="/user/shopping_cart">
-        <button class="btn btn-primary">
-            <i class="material-icons">favorite</i>Shopping cart
-        </button>
-    </a>
-
+</a>
+​
+<a href="/registration">
+    <button class="btn btn-primary">
+        <i class="material-icons">favorite</i>Register
+    </button>
+</a>
+​
+<a href="/recipes">
+    <button class="btn btn-primary">
+        <i class="material-icons">favorite</i>Recipes
+    </button>
+</a>
+​
+<a href="/user/shopping_cart">
+    <button class="btn btn-primary">
+        <i class="material-icons">favorite</i>Shopping cart
+    </button>
+</a>
+​
 <div class="container">
     <div class="row">
         <div class="col-4">
@@ -59,7 +59,7 @@
                    th:text="${product.name}">Nazwa produkt</a>
             </div>
         </div>
-
+        ​
         <div class="col-8">
             <div class="tab-content" id="nav-tabContent" th:each="product : ${products}" th:object="${product}">
                 <div class="tab-pane fade show active" th:id="${product.id}" role="tabpanel"
@@ -72,10 +72,10 @@
                         <tr>
                             <td th:text="*{description}"/>
                         </tr>
-
+                        ​
                         <tr>
                             <div class="panel-body">
-                            Price: <td th:text="${product.price}+' zł'"></td>
+                                Price: <td th:text="${product.price}+' zł'"></td>
                                 <form th:action="@{/user/shopping_cart}" method="post">
                                     <input hidden name="id" th:value="${product.id}">
                                     <button>
@@ -84,10 +84,10 @@
                             </div>
                         </tr>
                         <hr>
-
+                        ​
                     </article>
                 </div>
-
+                ​
             </div>
         </div>
     </div>
