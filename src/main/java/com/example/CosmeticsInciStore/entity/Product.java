@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Data
 @Builder
@@ -26,7 +27,7 @@ public class Product {
 
     @NotNull
     @Column(name = "amount", nullable = false)
-    private Long amount;
+    private int amount;
 
     @NotNull
     @Column(name = "price", nullable = false)
@@ -44,4 +45,22 @@ public class Product {
     @Column (name = "description", nullable = false)
     private String description;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return amount == product.amount &&
+                price == product.price &&
+                Objects.equals(id, product.id) &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(category, product.category) &&
+                Objects.equals(measure, product.measure) &&
+                Objects.equals(description, product.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, amount, price, category, measure, description);
+    }
 }
