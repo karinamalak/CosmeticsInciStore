@@ -2,8 +2,8 @@ package com.example.CosmeticsInciStore.entity;
 
 
 import lombok.*;
-
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Builder
@@ -25,9 +25,8 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Product> products;
 
     @Column (name = "sum")
     private Long sum;
