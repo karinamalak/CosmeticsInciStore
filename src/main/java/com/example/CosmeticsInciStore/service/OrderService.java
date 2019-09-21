@@ -1,8 +1,6 @@
 package com.example.CosmeticsInciStore.service;
 
 import com.example.CosmeticsInciStore.entity.Order;
-import com.example.CosmeticsInciStore.entity.Role;
-import com.example.CosmeticsInciStore.entity.User;
 import com.example.CosmeticsInciStore.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

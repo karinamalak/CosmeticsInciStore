@@ -1,6 +1,5 @@
 package com.example.CosmeticsInciStore.service;
 
-import com.example.CosmeticsInciStore.entity.Product;
 import com.example.CosmeticsInciStore.entity.Role;
 import com.example.CosmeticsInciStore.entity.User;
 import com.example.CosmeticsInciStore.repository.RoleRepository;

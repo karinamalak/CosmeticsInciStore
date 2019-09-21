@@ -31,12 +31,6 @@ public class ProductController {
         return this.productService.findAll();
     }
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public List<Product> findAllProducts(Model model){
-        model.addAttribute("products", productService.findAll());
-        return this.productService.findAll();
-    }
-
     @RequestMapping(value = "/admin/add_product", method = RequestMethod.GET)
     public String addProductView(Model model){
         model.addAttribute("productDTO", new ProductDTO());
